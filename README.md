@@ -8,6 +8,10 @@ Theme: *Poor Visibility on Parking-Induced Congestion*
 🖥️ **Interactive Dashboard:** Run locally with `streamlit run app.py` (see setup below)
 📓 **Kaggle Notebook (full pipeline):** https://www.kaggle.com/code/swapnomonmurari/grid2
 
+## ⚠️ One File You Need to Add
+
+This repo does **not include the raw violation dataset** (it's the official file provided by the hackathon — not ours to redistribute). To run `app.py` or re-run the notebook from scratch, copy your own copy of the officially-provided file (e.g. `jan_to_may_police_violation_anonymized...csv`) into the project folder first. Judges already have this file from HackerEarth/BTP — viewing the notebook's saved outputs, browsing this repo, or watching the demo video requires no extra files at all.
+
 ## Problem
 
 Traffic enforcement in Bengaluru is reactive and patrol-based. There is no system to identify which illegal parking violations actually cause congestion versus which are harmless. Officers cannot prioritize where to deploy limited patrol resources.
