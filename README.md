@@ -5,10 +5,10 @@ Theme: *Poor Visibility on Parking-Induced Congestion*
 
 ## Live Demo
 
-🖥️ **Interactive Dashboard:** Run locally with `streamlit run app.py` (see setup below)
-📓 **Kaggle Notebook (full pipeline):** https://www.kaggle.com/code/swapnomonmurari/grid2
+**Interactive Dashboard:** Run locally with `streamlit run app.py` (see setup below)
+**Kaggle Notebook (full pipeline):** https://www.kaggle.com/code/swapnomonmurari/grid2
 
-## ⚠️ One File You Need to Add
+## One File You Need to Add
 
 This repo does **not include the raw violation dataset** (it's the official file provided by the hackathon — not ours to redistribute). To run `app.py` or re-run the notebook from scratch, copy your own copy of the officially-provided file (e.g. `jan_to_may_police_violation_anonymized...csv`) into the project folder first. Judges already have this file from HackerEarth/BTP — viewing the notebook's saved outputs, browsing this repo, or watching the demo video requires no extra files at all.
 
