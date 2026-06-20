@@ -10,7 +10,7 @@ Theme: *Poor Visibility on Parking-Induced Congestion*
 
 ## One File You Need to Add
 
-This repo does **not include the raw violation dataset** (it's the official file provided by the hackathon — not ours to redistribute). To run `app.py` or re-run the notebook from scratch, copy your own copy of the officially-provided file (e.g. `jan_to_may_police_violation_anonymized...csv`) into the project folder first. Judges already have this file from HackerEarth/BTP — viewing the notebook's saved outputs, browsing this repo, or watching the demo video requires no extra files at all.
+This repo does **not include the raw violation dataset** (it's the official file provided by the hackathon — not ours to redistribute). To run `app.py` or re-run the notebook from scratch, copy your own copy of the officially-provided file (e.g. `jan to may police violation_anonymized791b166.csv`) into the project folder first. Judges already have this file from HackerEarth/BTP — viewing the notebook's saved outputs, browsing this repo, or watching the demo video requires no extra files at all.
 
 ## Problem
 
@@ -59,7 +59,7 @@ streamlit run app.py
 
 The app needs two CSVs in the same folder:
 - `enforcement_priority_zones.csv` — **included in this repo**
-- The official raw violation dataset provided by the hackathon (e.g. `jan_to_may_police_violation_anonymized...csv`) — **not redistributed here**, per competition rules requiring use of only the officially provided dataset. Place your copy of the official file in this folder before running, or run the notebook on Kaggle where the dataset is already attached.
+- The official raw violation dataset provided by the hackathon (e.g. `jan to may police violation_anonymized791b166.csv`) — **not redistributed here**, per competition rules requiring use of only the officially provided dataset. Place your copy of the official file in this folder before running, or run the notebook on Kaggle where the dataset is already attached.
 
 The app opens automatically at `http://localhost:8501`.
 
