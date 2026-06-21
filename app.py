@@ -195,6 +195,54 @@ if page == "📊 Executive Overview":
     fig3.update_traces(textposition="outside", textfont_color="#e6edf3")
     st.plotly_chart(fig3, use_container_width=True)
 
+    # ── Citywide Action Plan ────────────────────────────────────────────────
+    st.markdown("---")
+    st.markdown("### 🎯 Citywide Action Plan — Resource Deployment Summary")
+    st.markdown(
+        "<span style='color:#8b949e;'>Aggregated from per-zone recommendations, "
+        "based on each zone's Congestion Risk Score tier.</span>",
+        unsafe_allow_html=True,
+    )
+
+    tow_zones    = zones[zones["crs_predicted"] >= 50]
+    patrol_zones = zones[(zones["crs_predicted"] >= 40) & (zones["crs_predicted"] < 50)]
+    routine_zones = zones[(zones["crs_predicted"] >= 25) & (zones["crs_predicted"] < 40)]
+
+    a1, a2, a3 = st.columns(3)
+    with a1:
+        st.markdown(
+            f'<div class="metric-card" style="border-left:4px solid #f85149;">'
+            f'<div class="metric-val">{len(tow_zones)}</div>'
+            f'<div class="metric-lbl">Towing Units Needed</div>'
+            f'<div style="color:#8b949e;font-size:0.78rem;margin-top:4px;">'
+            f'1 per HIGH-tier zone (CRS ≥ 50) · covers {int(tow_zones["violation_count"].sum()):,} violations</div>'
+            f'</div>', unsafe_allow_html=True)
+    with a2:
+        st.markdown(
+            f'<div class="metric-card" style="border-left:4px solid #e3a119;">'
+            f'<div class="metric-val">{len(patrol_zones)}</div>'
+            f'<div class="metric-lbl">Extra Patrol Vehicles</div>'
+            f'<div style="color:#8b949e;font-size:0.78rem;margin-top:4px;">'
+            f'1 per zone, CRS 40–50 · covers {int(patrol_zones["violation_count"].sum()):,} violations</div>'
+            f'</div>', unsafe_allow_html=True)
+    with a3:
+        st.markdown(
+            f'<div class="metric-card" style="border-left:4px solid #f0c21f;">'
+            f'<div class="metric-val">{len(routine_zones)}</div>'
+            f'<div class="metric-lbl">Zones on Routine Watch</div>'
+            f'<div style="color:#8b949e;font-size:0.78rem;margin-top:4px;">'
+            f'CRS 25–40 · signage + weekly monitoring only</div>'
+            f'</div>', unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(
+        f"<span style='color:#8b949e;font-size:0.85rem;'>"
+        f"💡 This is a deployment <b>starting point</b> derived directly from the zone tiers above — "
+        f"see the <b>Zone Explorer</b> page for the full recommendation breakdown per individual zone, "
+        f"or the <b>Impact Simulator</b> to model how added patrols affect a zone's projected risk score."
+        f"</span>", unsafe_allow_html=True,
+    )
+
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE 2 — HOTSPOT MAP
 # ══════════════════════════════════════════════════════════════════════════════
