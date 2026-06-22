@@ -219,6 +219,59 @@ if page == "📊 Executive Overview":
     fig3.update_traces(textposition="outside", textfont_color="#e6edf3")
     st.plotly_chart(fig3, use_container_width=True)
 
+    # ── What Drives the Risk Score ──────────────────────────────────────────
+    st.markdown("---")
+    st.markdown("### 🔬 What Drives the Congestion Risk Score")
+    st.markdown(
+        "<span style='color:#8b949e;'>LightGBM feature importance (by gain) — "
+        "shows which zone characteristics most influence the model's ranking. "
+        "CRS itself is a domain-engineered proxy (no ground-truth congestion label exists), "
+        "so this shows what the model leans on to differentiate zones, not a causal claim.</span>",
+        unsafe_allow_html=True,
+    )
+
+    _fi_labels = {
+        "violation_density": "Violation Density",
+        "peak_hour_frac": "Peak-Hour Fraction",
+        "dist_to_centre_km": "Distance to City Centre",
+        "violation_count": "Violation Count",
+        "weekend_frac": "Weekend Fraction",
+        "recurrence_score": "Recurrence Score",
+        "morning_peak_frac": "Morning Peak Fraction",
+        "spread_km": "Zone Spread (km)",
+        "viol_SCOOTER_frac": "Scooter Share",
+        "hour_cos_mean": "Hour (cos component)",
+        "viol_CAR_frac": "Car Share",
+        "evening_peak_frac": "Evening Peak Fraction",
+        "viol_MAXI-CAB_frac": "Maxi-Cab Share",
+        "hour_sin_mean": "Hour (sin component)",
+        "viol_PASSENGER_AUTO_frac": "Passenger Auto Share",
+        "viol_MOTOR_CYCLE_frac": "Motorcycle Share",
+    }
+    _fi_data = [
+        ("violation_density", 37018.98), ("peak_hour_frac", 16838.71),
+        ("dist_to_centre_km", 8582.08), ("violation_count", 7754.21),
+        ("weekend_frac", 4983.05), ("recurrence_score", 4163.72),
+        ("morning_peak_frac", 2482.51), ("spread_km", 2304.66),
+        ("viol_SCOOTER_frac", 1366.76), ("hour_cos_mean", 1086.74),
+    ]
+    fi_df = pd.DataFrame(_fi_data, columns=["feature", "importance"])
+    fi_df["label"] = fi_df["feature"].map(_fi_labels)
+    fi_df = fi_df.sort_values("importance", ascending=True)
+
+    fig_fi = px.bar(
+        fi_df, x="importance", y="label", orientation="h",
+        color="importance",
+        color_continuous_scale=["#30363d", "#8957e5", "#bc8cff"],
+        labels={"importance": "Importance (Gain)", "label": ""},
+    )
+    fig_fi.update_layout(
+        plot_bgcolor="#0d1117", paper_bgcolor="#0d1117",
+        font_color="#c9d1d9", coloraxis_showscale=False,
+        margin=dict(l=0, r=0, t=10, b=0), height=380,
+    )
+    st.plotly_chart(fig_fi, use_container_width=True)
+
     # ── Citywide Action Plan ────────────────────────────────────────────────
     st.markdown("---")
     st.markdown("### 🎯 Citywide Action Plan — Resource Deployment Summary")
