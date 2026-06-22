@@ -46,9 +46,33 @@ def load_zones():
     df = pd.read_csv("enforcement_priority_zones.csv")
     return df
 
+def _find_violation_csv():
+    """Auto-detect the raw violation dataset regardless of exact filename
+    (handles spaces vs underscores, suffixes like '(1)' or '__1_', etc.)."""
+    import os
+    candidates = []
+    for fname in os.listdir("."):
+        lower = fname.lower()
+        if not lower.endswith(".csv"):
+            continue
+        if fname == "enforcement_priority_zones.csv":
+            continue
+        if "violation" in lower or "police" in lower or "parking" in lower:
+            candidates.append(fname)
+    if not candidates:
+        raise FileNotFoundError(
+            "Could not find the violation dataset CSV in the current folder. "
+            "Place the official dataset file (e.g. 'jan to may police "
+            "violation_anonymized791b166.csv') in the same folder as app.py."
+        )
+    # Prefer the largest file if multiple matches (the real dataset, not a small export)
+    candidates.sort(key=lambda f: os.path.getsize(f), reverse=True)
+    return candidates[0]
+
 @st.cache_data
 def load_violations():
-    df = pd.read_csv("jan_to_may_police_violation_anonymized791b166__1_.csv")
+    csv_path = _find_violation_csv()
+    df = pd.read_csv(csv_path)
     df["created_datetime"] = pd.to_datetime(df["created_datetime"], format="mixed", utc=True)
     df["hour"] = df["created_datetime"].dt.hour
     df["day_of_week"] = df["created_datetime"].dt.day_name()
